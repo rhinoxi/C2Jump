@@ -12,6 +12,7 @@ public class DashState : BasicMovementState
     private float currentDashSpeed;
 
     public override void Enter() {
+        controller.Dash = false;
         controller.Dashable = false;
         controller.IsDashing = true;
         gravityBefore = controller.Gravity;
@@ -30,6 +31,10 @@ public class DashState : BasicMovementState
     }
 
     public override bool Update() {
+        if (controller.OnGround) {
+            controller.Dashable = true;
+        }
+
         if (!controller.IsDashing) {
             if (controller.OnGround) {
                 controller.SetState(controller.stOnGround);
@@ -59,10 +64,6 @@ public class DashState : BasicMovementState
             dashLockTimer -= Time.fixedDeltaTime;
         }
         controller.IsDashing = false;
-        controller.Dash = false;
-        if (controller.OnGround) {
-            controller.Dashable = true;
-        }
     }
 
     public override void Exit() {
