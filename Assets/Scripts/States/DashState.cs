@@ -28,6 +28,10 @@ public class DashState : BasicMovementState
         } else {
             dashDir = controller.OctoDir(Mathf.Atan2(controller.Movement.y, controller.Movement.x));
         }
+        
+        if (dashDir.x * controller.Facing < 0) {
+            controller.Flip();
+        }
     }
 
     public override bool Update() {
