@@ -38,17 +38,27 @@ public class OnGroundState : BasicMovementState
             if (controller.Speed.x != controller.LiftVelocity.x) {
                 OnGroundSlowDown();
             }
-        } else if (Mathf.Abs(controller.Speed.x) >= controller.MaxRun + Mathf.Abs(controller.LiftVelocity.x)
-            && controller.Movement.x * controller.Speed.x > 0) {
-            // Decrease speed to max;
-            controller.Speed = new Vector2((controller.MaxRun + Mathf.Abs(controller.LiftVelocity.x)) * Mathf.Sign(controller.Speed.x), controller.Speed.y);
         } else {
-            // Increase speed to max;
-            float vx = Mathf.Lerp(controller.Speed.x, Mathf.Sign(controller.Movement.x) * (controller.MaxRun + Mathf.Abs(controller.LiftVelocity.x)), controller.RunAccel * Time.fixedDeltaTime);
+            float maxVX;
+            if (controller.Movement.x * controller.LiftVelocity.x > 0) {
+                maxVX = Mathf.Sign(controller.Movement.x) * (controller.MaxRun + Mathf.Abs(controller.LiftVelocity.x));
+            } else {
+                maxVX = Mathf.Sign(controller.Movement.x) * (controller.MaxRun - Mathf.Abs(controller.LiftVelocity.x));
+            }
+
+            float vx;
+            if (Mathf.Abs(controller.Speed.x) >= Mathf.Abs(maxVX)) {
+                vx = Mathf.Lerp(controller.Speed.x, maxVX, controller.RunReduce * Time.fixedDeltaTime);
+            }
+            else {
+                vx = Mathf.Lerp(controller.Speed.x, maxVX, controller.RunAccel * Time.fixedDeltaTime);
+            }
             controller.Speed = new Vector2(vx, controller.Speed.y);
+
             if (controller.Movement.x * controller.Facing < 0) {
                 controller.Flip();
             }
+
         }
 
         return true;
