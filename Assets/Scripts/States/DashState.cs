@@ -33,6 +33,8 @@ public class DashState : BasicMovementState
     public override bool Update() {
         if (controller.OnGround) {
             controller.Dashable = true;
+        } else {
+            controller.Dashable = false;
         }
 
         if (!controller.IsDashing) {
@@ -67,6 +69,7 @@ public class DashState : BasicMovementState
     }
 
     public override void Exit() {
+        controller.Dash = false;
         controller.Gravity = gravityBefore;
     }
 

@@ -31,6 +31,21 @@ public class ClimbState : BasicMovementState
             return false;
         }
 
+        if (controller.Jump) {
+            if (Mathf.Abs(controller.Movement.x) > 0.5) {
+                if (controller.WallBoost.sqrMagnitude > Vector2.kEpsilon) {
+                    controller.SetState(controller.stBoostWallJump);
+                } else {
+                    controller.SetState(controller.stWallJump);
+                    return false;
+                }
+            } else {
+                controller.SetState(controller.stClimbJump);
+            }
+            return false;
+        }
+
+
         if (controller.Movement.y != 0) {
             if (controller.OnWallTimer <= 0) {
                 controller.SetState(controller.stFall);
@@ -40,19 +55,6 @@ public class ClimbState : BasicMovementState
             controller.OnWallTimer -= Time.fixedDeltaTime;
         } else {
             controller.Speed = controller.WallVelocity;
-        }
-
-        if (controller.Jump) {
-            if (Mathf.Abs(controller.Movement.x) > 0.5) {
-                if (controller.WallBoost.sqrMagnitude > Vector2.kEpsilon) {
-                    controller.SetState(controller.stBoostWallJump);
-                } else {
-                    controller.SetState(controller.stWallJump);
-                }
-            } else {
-                controller.SetState(controller.stClimbJump);
-            }
-            return false;
         }
 
         return true;

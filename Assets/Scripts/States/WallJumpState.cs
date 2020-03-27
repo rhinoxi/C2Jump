@@ -8,15 +8,17 @@ public class WallJumpState : BasicMovementState
     protected float wallJumpTimer;
     public override void Enter() {
         wallJumpTimer = controller.WallJumpTime;
-        controller.Speed = new Vector2(
-                controller.Facing * -1 * controller.WallJumpSpeed * Mathf.Cos(controller.WallJumpDir),
-                controller.WallJumpSpeed * Mathf.Sin(controller.WallJumpDir)
-                ) + controller.WallVelocity / 2f;
-        controller.Flip();
         controller.OnWallTimer -= controller.OnWallTime / 4f;
+        controller.Flip();
     }
 
     public override bool Update() {
+        if (wallJumpTimer == controller.WallJumpTime) {
+            // There's some bug when putting this in Enter().
+            // Have no idea.
+            Jump();
+        }
+
         if (!base.Update()) {
             return false;
         }
@@ -27,6 +29,13 @@ public class WallJumpState : BasicMovementState
             return false;
         }
         return true;
+    }
+
+    protected virtual void Jump() {
+        controller.Speed = new Vector2(
+                controller.Facing * controller.WallJumpSpeed * Mathf.Cos(controller.WallJumpDir),
+                controller.WallJumpSpeed * Mathf.Sin(controller.WallJumpDir)
+                ) + controller.WallVelocity / 2f;
     }
 
     public override void Exit() {

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 269634094}
   - component: {fileID: 269634093}
   - component: {fileID: 269634099}
+  - component: {fileID: 269634100}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -155,14 +156,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091c84c72b89e2a4ea2c5d6a26bcf5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footCenterOffset: {x: 0, y: -1.4}
-  onGroundBoxSize: {x: 1.4, y: 0.1}
-  grabCenterOffset: {x: 0.7, y: -0.65}
-  onWallBoxSize: {x: 0.14, y: 1.4}
-  MaxRun: 12
-  AirShrink: 0.6
+  footCenterOffset: {x: -0.04, y: -0.75}
+  onGroundBoxSize: {x: 1.35, y: 0.1}
+  grabCenterOffset: {x: 0.68, y: -0.2}
+  onWallBoxSize: {x: 0.14, y: 1}
+  MaxRun: 8
+  AirShrink: 0.2
   RunReduce: 20
-  RunAccel: 50
+  RunAccel: 24
   LiftXCap: 60
   LiftYCap: 40
   ClimbSpeed: 4
@@ -177,10 +178,10 @@ MonoBehaviour:
   WallJumpBonusDst: 0.2
   WallSlideSpeed: 1
   OnWallTime: 2
-  DashTime: 0.15
-  DashLockTime: 0.08
-  DashStartSpeed: 64
-  DashEndSpeed: 48
+  DashTime: 0.2
+  DashLockTime: 0.12
+  DashStartSpeed: 32
+  DashEndSpeed: 24
   BoostLifeTime: 0.3
   stateText: {fileID: 568238992}
   groundLayer:
@@ -238,7 +239,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 49c74c082068f0f4096020e9e6cb1eda, type: 3}
+  m_Sprite: {fileID: 9157662689236782909, guid: 3df3b3be2112d824f98105196622be30,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -257,7 +259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269634092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.8, y: 5.9, z: 0}
+  m_LocalPosition: {x: -17.3, y: -12.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1330540816}
@@ -301,11 +303,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.75, y: -1.38}
-  - {x: -0.75, y: 1.25}
-  - {x: 0.75, y: 1.25}
-  - {x: 0.75, y: -1.38}
-  - {x: -0.75, y: -1.38}
+  - {x: -0.75, y: -0.75}
+  - {x: -0.75, y: 0.81}
+  - {x: 0.65, y: 0.81}
+  - {x: 0.65, y: -0.75}
+  - {x: -0.75, y: -0.75}
 --- !u!114 &269634099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +320,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f62a2733a5f7c4bb07230e7a70dd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &269634100
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269634092}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82f74769d87e1054c9cff197cfc77423, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &409641237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3434,7 +3455,7 @@ PrefabInstance:
     - target: {fileID: 7290984969615407752, guid: 5d11d3c41dbaed04b81a85fb31ad3a55,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7290984969615407753, guid: 5d11d3c41dbaed04b81a85fb31ad3a55,
         type: 3}
@@ -3451,15 +3472,20 @@ PrefabInstance:
       propertyPath: direction.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7290984969615407753, guid: 5d11d3c41dbaed04b81a85fb31ad3a55,
+        type: 3}
+      propertyPath: totalDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7290984969615407758, guid: 5d11d3c41dbaed04b81a85fb31ad3a55,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7290984969615407758, guid: 5d11d3c41dbaed04b81a85fb31ad3a55,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.5
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 7290984969615407758, guid: 5d11d3c41dbaed04b81a85fb31ad3a55,
         type: 3}

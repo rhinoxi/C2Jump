@@ -267,7 +267,6 @@ public class Controller : MonoBehaviour
                 vx = 0;
             } else if (Mathf.Abs(Speed.x) > MaxRun) {
                 vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * MaxRun, airRunReduce * Time.fixedDeltaTime);
-                Debug.Log(vx);
             } else {
                 vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * MaxRun, airRunAccel * Time.fixedDeltaTime);
             }
