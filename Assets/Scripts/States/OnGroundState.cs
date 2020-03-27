@@ -35,9 +35,7 @@ public class OnGroundState : BasicMovementState
         }
 
         if (controller.Movement.x == 0) {
-            if (controller.Speed.x != controller.LiftVelocity.x) {
-                OnGroundSlowDown();
-            }
+            controller.Speed = controller.LiftVelocity;
         } else {
             float maxVX;
             if (controller.Movement.x * controller.LiftVelocity.x > 0) {
@@ -63,16 +61,6 @@ public class OnGroundState : BasicMovementState
 
         return true;
     }
-
-    private void OnGroundSlowDown() {
-        float vx = Mathf.Lerp(controller.Speed.x, controller.LiftVelocity.x, controller.RunReduce * Time.fixedDeltaTime);
-        if (Mathf.Abs(vx - controller.LiftVelocity.x) < 0.01) {
-            controller.Speed = new Vector2(controller.LiftVelocity.x, controller.Speed.y);
-        } else {
-            controller.Speed = new Vector2(vx, controller.Speed.y);
-        }
-    }
-
 
     public override string ToString() {
         return "OnGround";

@@ -181,7 +181,7 @@ MonoBehaviour:
   DashTime: 0.2
   DashLockTime: 0.12
   DashStartSpeed: 32
-  DashEndSpeed: 24
+  DashEndSpeed: 20
   BoostLifeTime: 0.3
   stateText: {fileID: 568238992}
   groundLayer:
