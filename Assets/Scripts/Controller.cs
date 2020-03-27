@@ -182,10 +182,10 @@ public class Controller : MonoBehaviour
 
         if (onGround && hitGround.attachedRigidbody != null) {
             liftVelocity = hitGround.attachedRigidbody.velocity;
-            liftBooster.Update(liftVelocity);
         } else {
             liftVelocity = Vector2.zero;
         }
+        liftBooster.Update(liftVelocity);
     }
 
     private void UpdateOnWall() {
@@ -195,10 +195,10 @@ public class Controller : MonoBehaviour
         onWall = hitWall != null;
         if (onWall && hitWall.attachedRigidbody != null) {
             wallVelocity = hitWall.attachedRigidbody.velocity;
-            wallBooster.Update(wallVelocity);
         } else {
             wallVelocity = Vector2.zero;
         }
+        wallBooster.Update(wallVelocity);
     }
 
     public bool OnWall {
