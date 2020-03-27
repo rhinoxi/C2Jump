@@ -22,36 +22,37 @@ public class Controller : MonoBehaviour
     public Vector2 grabCenterOffset;
     public Vector2 onWallBoxSize;
 
-    public float MaxRun = 4f;
+    public float MaxRun = 12f;
     public float AirShrink = 0.6f;
-    public float RunReduce = 10f;
-    public float RunAccel = 10f;
-    public float BreakScale = 0.7f;
+    public float RunReduce = 20f;
+    public float RunAccel = 50f;
     public float LiftXCap = 60f;
     public float LiftYCap = 40f;
-    public float ClimbSpeed = 2f;
-    public float MaxFall = -20f;
-    public float JumpTime = 0.3f;
-    public float JumpSpeed = 20f;
+    public float ClimbSpeed = 4f;
+    public float MaxFall = -30f;
+    public float JumpTime = 0.2f;
+    public float JumpSpeed = 30f;
     public float ClimbJumpTime = 0.1f;
-    public float ClimbJumpSpeed = 20f;
+    public float ClimbJumpSpeed = 14f;
     public float WallJumpTime = 0.2f;
-    public float WallJumpSpeed = 30f;
+    public float WallJumpSpeed = 20f;
     [Range(0f, 1.5f)]
-    public float WallJumpDir = Mathf.PI / 4;
+    public float WallJumpDir = 1;
     public float WallJumpBonusDst = 0.2f;
     public float WallSlideSpeed = 1f;
     public float OnWallTime = 2f;
     public float DashTime = 0.15f; // You can't dash twice in one DashTime period
     public float DashLockTime = 0.08f; // In DashLockTime, state will not change, out of DashLockTime, player can jump
-    public float DashStartSpeed = 200f;
-    public float DashEndSpeed = 100f;
+    public float DashStartSpeed = 64f;
+    public float DashEndSpeed = 48f;
     public float BoostLifeTime = 0.3f;
 
     public TextMeshProUGUI stateText;
 
     public LayerMask groundLayer;
 
+    private float airRunReduce;
+    private float airRunAccel;
     private Vector2 footCenter;
     private Vector2 grabCenter;
     private Rigidbody2D rb;
@@ -83,10 +84,15 @@ public class Controller : MonoBehaviour
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+
+        airRunReduce = RunReduce * AirShrink;
+        airRunAccel = RunAccel * AirShrink;
+
         liftBooster = new Booster(BoostLifeTime, Time.fixedDeltaTime);
         StartCoroutine(liftBooster.Run());
         wallBooster = new Booster(BoostLifeTime, Time.fixedDeltaTime);
         StartCoroutine(wallBooster.Run());
+
         SetState(stFall);
     }
 
@@ -256,16 +262,14 @@ public class Controller : MonoBehaviour
         }
         else {
             float vx;
-            float maxAirRun = MaxRun * AirShrink;
-            float airRunReduce = RunReduce * AirShrink;
-            float airRunAccel = RunAccel * AirShrink;
             if (Movement.x * Facing < 0) {
                 Flip();
                 vx = 0;
-            } else if (Mathf.Abs(Speed.x) > maxAirRun) {
-                vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * maxAirRun, airRunReduce * Time.fixedDeltaTime);
+            } else if (Mathf.Abs(Speed.x) > MaxRun) {
+                vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * MaxRun, airRunReduce * Time.fixedDeltaTime);
+                Debug.Log(vx);
             } else {
-                vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * maxAirRun, airRunAccel * Time.fixedDeltaTime);
+                vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * MaxRun, airRunAccel * Time.fixedDeltaTime);
             }
             Speed = new Vector2(vx, Speed.y);
         }
