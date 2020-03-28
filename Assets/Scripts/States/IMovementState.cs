@@ -7,4 +7,5 @@ public interface IMovementState
     void Enter();
     bool Update();
     void Exit();
+    int ID { get; }
 }

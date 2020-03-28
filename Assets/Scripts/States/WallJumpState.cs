@@ -41,4 +41,6 @@ public class WallJumpState : BasicMovementState
     public override void Exit() {
         controller.Jump = false;
     }
+
+    public override int ID => 5;
 }

@@ -43,7 +43,7 @@ public class DashState : BasicMovementState
 
         if (!controller.IsDashing) {
             if (controller.OnGround) {
-                controller.SetState(controller.stOnGround);
+                controller.SetState(controller.stIdle);
             } else {
                 controller.SetState(controller.stFall);
             }
@@ -80,4 +80,6 @@ public class DashState : BasicMovementState
     public override string ToString() {
         return "Dash";
     }
+
+    public override int ID => 8;
 }

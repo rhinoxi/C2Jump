@@ -22,7 +22,7 @@ public class JumpState : BasicMovementState
             controller.SetState(controller.stClimb);
             return false;
         } else if (jumpTimer <= 0 && controller.OnGround) {
-            controller.SetState(controller.stOnGround);
+            controller.SetState(controller.stIdle);
             return false;
         }
 
@@ -51,4 +51,6 @@ public class JumpState : BasicMovementState
     public override string ToString() {
         return "Jump";
     }
+
+    public override int ID => 4;
 }

@@ -16,4 +16,6 @@ public class BoostWallJumpState : WallJumpState
     public override string ToString() {
         return "BoostWallJump";
     }
+
+    public override int ID => 10;
 }

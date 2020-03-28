@@ -30,4 +30,6 @@ public class ClimbJumpState : BasicMovementState
         jumpTimer = 0;
         controller.Jump = false;
     }
+
+    public override int ID => 6;
 }

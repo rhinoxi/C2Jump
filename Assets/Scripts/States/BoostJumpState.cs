@@ -31,4 +31,6 @@ public class BoostJumpState : JumpState
     public override string ToString() {
         return "BoostJump";
     }
+
+    public override int ID => 9;
 }

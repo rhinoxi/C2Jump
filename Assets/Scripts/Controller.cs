@@ -6,7 +6,8 @@ using TMPro;
 public class Controller : MonoBehaviour
 {
     private IMovementState mState;
-    public IMovementState stOnGround;
+    public IMovementState stIdle;
+    public IMovementState stRun;
     public IMovementState stClimb;
     public IMovementState stFall;
     public IMovementState stJump;
@@ -51,6 +52,8 @@ public class Controller : MonoBehaviour
 
     public LayerMask groundLayer;
 
+    private Animator anim;
+
     private float airRunReduce;
     private float airRunAccel;
     private Vector2 footCenter;
@@ -70,12 +73,13 @@ public class Controller : MonoBehaviour
     private Booster wallBooster;
 
     public Controller() {
-        stOnGround = new OnGroundState(this);
-        stFall = new FallState(this);
+        stIdle = new IdleState(this);
+        stRun = new RunState(this);
         stClimb = new ClimbState(this);
+        stFall = new FallState(this);
         stJump = new JumpState(this);
-        stClimbJump = new ClimbJumpState(this);
         stWallJump = new WallJumpState(this);
+        stClimbJump = new ClimbJumpState(this);
         stWallSlide = new WallSlideState(this);
         stDash = new DashState(this);
         stBoostJump = new BoostJumpState(this);
@@ -84,6 +88,7 @@ public class Controller : MonoBehaviour
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         airRunReduce = RunReduce * AirShrink;
         airRunAccel = RunAccel * AirShrink;
@@ -114,6 +119,8 @@ public class Controller : MonoBehaviour
         if (mState != null) mState.Exit();
         mState = state;
         mState.Enter();
+
+        anim.SetInteger("StateID", mState.ID);
     }
 
     public Vector2 Speed {

@@ -23,7 +23,7 @@ public class WallSlideState : BasicMovementState
         }
 
         if (controller.OnGround) {
-            controller.SetState(controller.stOnGround);
+            controller.SetState(controller.stIdle);
             return false;
         }
         else if (controller.WallJumpCheck()) {
@@ -47,4 +47,6 @@ public class WallSlideState : BasicMovementState
     public override string ToString() {
         return "WallSlide";
     }
+
+    public override int ID => 7;
 }

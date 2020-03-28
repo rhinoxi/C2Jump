@@ -23,7 +23,7 @@ public class FallState : BasicMovementState
         }
 
         if (controller.OnGround) {
-            controller.SetState(controller.stOnGround);
+            controller.SetState(controller.stIdle);
             return false;
         }
         else if (controller.WallJumpCheck()) {
@@ -54,4 +54,6 @@ public class FallState : BasicMovementState
     public override string ToString() {
         return "Fall";
     }
+
+    public override int ID => 3;
 }

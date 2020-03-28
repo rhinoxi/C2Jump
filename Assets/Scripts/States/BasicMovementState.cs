@@ -25,4 +25,6 @@ public abstract class BasicMovementState: IMovementState
 
     public virtual void Exit() {
     }
+
+    public abstract int ID { get; }
 }

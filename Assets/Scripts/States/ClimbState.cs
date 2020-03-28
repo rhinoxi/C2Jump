@@ -67,4 +67,6 @@ public class ClimbState : BasicMovementState
     public override string ToString() {
         return "Climb";
     }
+
+    public override int ID => 2;
 }
