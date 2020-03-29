@@ -32,6 +32,8 @@ public class DashState : BasicMovementState
         if (dashDir.x * controller.Facing < 0) {
             controller.Flip();
         }
+
+        controller.MakeTrail();
     }
 
     public override bool Update() {
@@ -73,6 +75,7 @@ public class DashState : BasicMovementState
     }
 
     public override void Exit() {
+        controller.MakeTrail();
         controller.Dash = false;
         controller.Gravity = gravityBefore;
     }

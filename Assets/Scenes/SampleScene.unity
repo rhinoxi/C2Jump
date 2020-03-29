@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091c84c72b89e2a4ea2c5d6a26bcf5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trail: {fileID: 1176679450526880626, guid: ae79aa4289246a24f97c0379712d071e, type: 3}
   footCenterOffset: {x: -0.04, y: -0.75}
   onGroundBoxSize: {x: 1.35, y: 0.1}
   grabCenterOffset: {x: 0.68, y: -0.2}
@@ -245,7 +246,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -303,9 +304,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.75, y: -0.75}
-  - {x: -0.75, y: 0.81}
-  - {x: 0.65, y: 0.81}
+  - {x: -0.5, y: -0.75}
+  - {x: -0.5, y: 0.75}
+  - {x: 0.65, y: 0.75}
   - {x: 0.65, y: -0.75}
   - {x: -0.75, y: -0.75}
 --- !u!114 &269634099
@@ -469,7 +470,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.9292453, g: 0.95598024, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

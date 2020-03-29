@@ -18,6 +18,7 @@ public class Controller : MonoBehaviour
     public IMovementState stBoostJump;
     public IMovementState stBoostWallJump;
 
+    public GameObject trail;
     public Vector2 footCenterOffset;
     public Vector2 onGroundBoxSize;
     public Vector2 grabCenterOffset;
@@ -72,6 +73,8 @@ public class Controller : MonoBehaviour
     private Booster liftBooster;
     private Booster wallBooster;
 
+    private float prevAnimSpeed;
+
     public Controller() {
         stIdle = new IdleState(this);
         stRun = new RunState(this);
@@ -121,6 +124,22 @@ public class Controller : MonoBehaviour
         mState.Enter();
 
         anim.SetInteger("StateID", mState.ID);
+    }
+
+    public void ResumeAnim() {
+        anim.speed = prevAnimSpeed;
+    }
+
+    public void SetAnimSpeed(float value) {
+        anim.speed = value;
+    }
+
+    public void PauseAnim() {
+        if (anim.speed != 0) {
+            Debug.Log("Pause");
+            prevAnimSpeed = anim.speed;
+            anim.speed = 0;
+        }
     }
 
     public Vector2 Speed {
@@ -306,6 +325,12 @@ public class Controller : MonoBehaviour
         else {
             return new Vector2(-1, 0);
         }
+    }
+
+    public void MakeTrail() {
+        GameObject ins = Instantiate(trail, transform.position, Quaternion.identity);
+        ins.transform.localScale = transform.localScale;
+        Destroy(ins, 1);
     }
 
     public void OnDrawGizmos() {

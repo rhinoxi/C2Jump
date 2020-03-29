@@ -53,8 +53,15 @@ public class ClimbState : BasicMovementState
             }
             controller.Speed = controller.WallVelocity + Vector2.up * Mathf.Sign(controller.Movement.y) * controller.ClimbSpeed;
             controller.OnWallTimer -= Time.fixedDeltaTime;
+            controller.SetAnimSpeed(1);
+            // if (controller.Movement.y > 0) {
+            //     controller.SetAnimSpeed(1);
+            // } else {
+            //     controller.SetAnimSpeed(-1);
+            // }
         } else {
             controller.Speed = controller.WallVelocity;
+            controller.SetAnimSpeed(0f);
         }
 
         return true;
@@ -62,6 +69,7 @@ public class ClimbState : BasicMovementState
 
     public override void Exit() {
         controller.Gravity = gravityBefore;
+        controller.SetAnimSpeed(1f);
     }
 
     public override string ToString() {
