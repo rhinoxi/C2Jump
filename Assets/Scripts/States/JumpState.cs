@@ -40,7 +40,7 @@ public class JumpState : BasicMovementState
 
     protected virtual void Jump() {
         float vy = Mathf.Lerp(0, controller.JumpSpeed + liftVelocity.y, jumpTimer / controller.JumpTime);
-        controller.Speed = new Vector2(controller.Speed.x, vy);
+        controller.Velocity = new Vector2(controller.Velocity.x, vy);
     }
 
     public override void Exit() {

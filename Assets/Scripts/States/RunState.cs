@@ -24,13 +24,13 @@ public class RunState : OnGroundState
         }
 
         float vx;
-        if (Mathf.Abs(controller.Speed.x) >= Mathf.Abs(maxVX)) {
-            vx = Mathf.Lerp(controller.Speed.x, maxVX, controller.RunReduce * Time.fixedDeltaTime);
+        if (Mathf.Abs(controller.Velocity.x) >= Mathf.Abs(maxVX)) {
+            vx = Mathf.Lerp(controller.Velocity.x, maxVX, controller.RunReduce * Time.fixedDeltaTime);
         }
         else {
-            vx = Mathf.Lerp(controller.Speed.x, maxVX, controller.RunAccel * Time.fixedDeltaTime);
+            vx = Mathf.Lerp(controller.Velocity.x, maxVX, controller.RunAccel * Time.fixedDeltaTime);
         }
-        controller.Speed = new Vector2(vx, controller.Speed.y);
+        controller.Velocity = new Vector2(vx, controller.Velocity.y);
 
         if (controller.Movement.x * controller.Facing < 0) {
             controller.Flip();

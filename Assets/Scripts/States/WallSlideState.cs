@@ -39,7 +39,7 @@ public class WallSlideState : BasicMovementState
             return false;
         }
 
-        controller.Speed = Vector2.down * controller.WallSlideSpeed + controller.WallVelocity;
+        controller.Velocity = Vector2.down * controller.WallSlideSpeed + controller.WallVelocity;
         controller.OnWallTimer -= Time.fixedDeltaTime;
         return true;
     }

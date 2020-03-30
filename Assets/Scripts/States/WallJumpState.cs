@@ -32,7 +32,7 @@ public class WallJumpState : BasicMovementState
     }
 
     protected virtual void Jump() {
-        controller.Speed = new Vector2(
+        controller.Velocity = new Vector2(
                 controller.Facing * controller.WallJumpSpeed * Mathf.Cos(controller.WallJumpDir),
                 controller.WallJumpSpeed * Mathf.Sin(controller.WallJumpDir)
                 ) + controller.WallVelocity / 2f;

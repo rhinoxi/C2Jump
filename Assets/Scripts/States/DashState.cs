@@ -61,7 +61,7 @@ public class DashState : BasicMovementState
         }
 
         currentDashSpeed = Mathf.Lerp(controller.DashEndSpeed, currentDashSpeed, dashTimer / controller.DashTime);
-        controller.Speed = dashDir * currentDashSpeed;
+        controller.Velocity = dashDir * currentDashSpeed;
         return true;
     }
 

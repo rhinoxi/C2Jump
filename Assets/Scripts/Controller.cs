@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour
     public IMovementState stBoostWallJump;
 
     public GameObject trail;
+    public GameObject landingSmoke;
     public Vector2 footCenterOffset;
     public Vector2 onGroundBoxSize;
     public Vector2 grabCenterOffset;
@@ -74,6 +75,7 @@ public class Controller : MonoBehaviour
     private Booster wallBooster;
 
     private float prevAnimSpeed;
+    private Vector2 previousVelocity;
 
     public Controller() {
         stIdle = new IdleState(this);
@@ -108,6 +110,7 @@ public class Controller : MonoBehaviour
         UpdateOnGround();
         UpdateOnWall();
         mState.Update();
+        previousVelocity = rb.velocity;
     }
 
     public void SetState(IMovementState state) {
@@ -142,12 +145,18 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public Vector2 Speed {
+    public Vector2 Velocity {
         get {
             return rb.velocity;
         }
         set {
             rb.velocity = value;
+        }
+    }
+
+    public Vector2 PreviousVelocity {
+        get {
+            return previousVelocity;
         }
     }
 
@@ -284,19 +293,19 @@ public class Controller : MonoBehaviour
 
     public void InAirMovement() {
         if (Movement.x == 0) {
-            Speed = new Vector2(0, Speed.y);
+            Velocity = new Vector2(0, Velocity.y);
         }
         else {
             float vx;
             if (Movement.x * Facing < 0) {
                 Flip();
                 vx = 0;
-            } else if (Mathf.Abs(Speed.x) > MaxRun) {
-                vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * MaxRun, airRunReduce * Time.fixedDeltaTime);
+            } else if (Mathf.Abs(Velocity.x) > MaxRun) {
+                vx = Mathf.Lerp(Velocity.x, Mathf.Sign(Movement.x) * MaxRun, airRunReduce * Time.fixedDeltaTime);
             } else {
-                vx = Mathf.Lerp(Speed.x, Mathf.Sign(Movement.x) * MaxRun, airRunAccel * Time.fixedDeltaTime);
+                vx = Mathf.Lerp(Velocity.x, Mathf.Sign(Movement.x) * MaxRun, airRunAccel * Time.fixedDeltaTime);
             }
-            Speed = new Vector2(vx, Speed.y);
+            Velocity = new Vector2(vx, Velocity.y);
         }
     }
 
@@ -328,9 +337,13 @@ public class Controller : MonoBehaviour
     }
 
     public void MakeTrail() {
-        GameObject ins = Instantiate(trail, transform.position, Quaternion.identity);
+        GameObject ins = Instantiate(trail, transform.position + Vector3.forward, Quaternion.identity);
         ins.transform.localScale = transform.localScale;
-        Destroy(ins, 1);
+    }
+
+    public void MakeLandingSmoke() {
+        GameObject ins = Instantiate(landingSmoke, transform.position + Vector3.forward, Quaternion.identity);
+        ins.transform.localScale = transform.localScale;
     }
 
     public void OnDrawGizmos() {

@@ -16,7 +16,7 @@ public class IdleState : OnGroundState
             return false;
         }
 
-        controller.Speed = controller.LiftVelocity;
+        controller.Velocity = controller.LiftVelocity;
 
         return true;
     }

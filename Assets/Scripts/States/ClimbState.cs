@@ -24,7 +24,7 @@ public class ClimbState : BasicMovementState
 
         if (!controller.OnWall) {
             // TODO: Climb Over
-            if (controller.Speed.y > 0) {
+            if (controller.Velocity.y > 0) {
                 controller.AddForce(Vector2.up * 2f, ForceMode2D.Impulse);
             }
             controller.SetState(controller.stFall);
@@ -51,7 +51,7 @@ public class ClimbState : BasicMovementState
                 controller.SetState(controller.stFall);
                 return false;
             }
-            controller.Speed = controller.WallVelocity + Vector2.up * Mathf.Sign(controller.Movement.y) * controller.ClimbSpeed;
+            controller.Velocity = controller.WallVelocity + Vector2.up * Mathf.Sign(controller.Movement.y) * controller.ClimbSpeed;
             controller.OnWallTimer -= Time.fixedDeltaTime;
             controller.SetAnimSpeed(1);
             // if (controller.Movement.y > 0) {
@@ -60,7 +60,7 @@ public class ClimbState : BasicMovementState
             //     controller.SetAnimSpeed(-1);
             // }
         } else {
-            controller.Speed = controller.WallVelocity;
+            controller.Velocity = controller.WallVelocity;
             controller.SetAnimSpeed(0f);
         }
 

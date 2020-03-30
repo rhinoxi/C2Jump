@@ -16,11 +16,11 @@ public class BoostJumpState : JumpState
 
     protected override void Jump() {
         float vy = Mathf.Lerp(0, controller.JumpSpeed + liftVelocity.y +  controller.LiftBoost.y * Time.fixedDeltaTime, jumpTimer / controller.JumpTime);
-        float vx = controller.Speed.x;
+        float vx = controller.Velocity.x;
         if (controller.Movement.x * controller.LiftBoost.x > 0) {
             vx += controller.LiftBoost.x * Time.fixedDeltaTime;
         }
-        controller.Speed = new Vector2(vx, vy);
+        controller.Velocity = new Vector2(vx, vy);
     }
 
     public override void Exit() {

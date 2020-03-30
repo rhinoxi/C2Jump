@@ -12,6 +12,10 @@ public abstract class OnGroundState : BasicMovementState
         if (!controller.IsDashing) {
             controller.Dashable = true;
         }
+
+        if (controller.LiftVelocity.y - controller.PreviousVelocity.y > -controller.MaxFall - 1) {
+            controller.MakeLandingSmoke();
+        }
     }
 
     public override bool Update() {

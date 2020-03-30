@@ -9,7 +9,7 @@ public class ClimbJumpState : BasicMovementState
 
     public override void Enter() {
         jumpTimer = controller.ClimbJumpTime;
-        controller.Speed = Vector2.up * controller.ClimbJumpSpeed + controller.WallVelocity;
+        controller.Velocity = Vector2.up * controller.ClimbJumpSpeed + controller.WallVelocity;
         controller.OnWallTimer -= controller.OnWallTime / 4f;
     }
 

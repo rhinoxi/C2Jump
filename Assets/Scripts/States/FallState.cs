@@ -36,10 +36,10 @@ public class FallState : BasicMovementState
         }
 
         // Reach max falling speed
-        if (controller.Speed.y < controller.MaxFall) {
-            controller.Speed = new Vector2(controller.Speed.x, controller.MaxFall);
-        } else if (controller.Speed.y > 0) {
-            controller.Speed = new Vector2(controller.Speed.x, Mathf.Lerp(controller.Speed.y, 0, 0.6f));
+        if (controller.Velocity.y < controller.MaxFall) {
+            controller.Velocity = new Vector2(controller.Velocity.x, controller.MaxFall);
+        } else if (controller.Velocity.y > 0) {
+            controller.Velocity = new Vector2(controller.Velocity.x, Mathf.Lerp(controller.Velocity.y, 0, 0.6f));
         }
 
         controller.InAirMovement();
